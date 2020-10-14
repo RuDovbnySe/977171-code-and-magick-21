@@ -1,77 +1,49 @@
 'use strict';
 
-var userDialog = document.querySelector('.setup');
+const userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
 
 document.querySelector('.setup-similar').classList.remove('hidden');
 
-var similarListElement = document.querySelector('.setup-similar-list');
-var similarWizardTemplate = document.querySelector('#similar-wizard-template')
+const similarListElement = document.querySelector('.setup-similar-list');
+const similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .content
   .querySelector('.setup-similar-item');
 
-var WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215,' +
+const WIZARD_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+const WIZARD_SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+const COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215,' +
 ' 210, 55)', 'rgb(0, 0, 0)'];
-var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+const EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
-for (i = 0; i < 4; i++) {
-  let HeroName = function arrayRandElement(WIZARD_NAMES) {
-    var min = 0;
-    var max = WIZARD_NAMES.length - 1;
-    var rand = Math.ceil(Math.random() * (max - min));
-    return WIZARD_NAMES[rand];
-  };
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-  let HeroSurname = function arrayRandElement(WIZARD_SURNAMES) {
-    var min = 0;
-    var max = WIZARD_SURNAMES.length - 1;
-    var rand = Math.ceil(Math.random() * (max - min));
-    return WIZARD_SURNAMES[rand];
-  };
+const getRandomArrayItem = (array) => {
+  const randomIndex = getRandomNumber(0, array.length - 1);
+  const element = array[randomIndex];
+  return element;
+};
 
-  var HeroCoatColors = function arrayRandElement(COAT_COLORS) {
-    var min = 0;
-    var max = COAT_COLORS.length - 1;
-    var rand = Math.ceil(Math.random() * (max - min));
-    return COAT_COLORS[rand];
-  };
+let wizards = [];
+for (let i = 0; i < 4; i++) {
+  const wizarnName = getRandomArrayItem(WIZARD_NAMES);
+  const wizardSurname = getRandomArrayItem(WIZARD_SURNAMES);
+  const wizardFullName = wizarnName + ' ' + wizardSurname;
+  const wizardCoatColor = getRandomArrayItem(COAT_COLORS);
+  const wizardEyesColor = getRandomArrayItem(EYES_COLORS);
 
-  var HeroEyesColors = function arrayRandElement(EYES_COLORS) {
-    var min = 0;
-    var max = EYES_COLORS.length - 1;
-    var rand = Math.ceil(Math.random() * (max - min));
-    return EYES_COLORS[rand];
-  };
-
-  var wizards = [
+  const generateWizardData =
     {
-      name: HeroName(WIZARD_NAMES) + ' ' + HeroSurname(WIZARD_SURNAMES),
-      coatColor: HeroCoatColors(COAT_COLORS),
-      eyesColor: HeroEyesColors(EYES_COLORS)
-    },
-    {
-      name: HeroName(WIZARD_NAMES) + ' ' + HeroSurname(WIZARD_SURNAMES),
-      coatColor: HeroCoatColors(COAT_COLORS),
-      eyesColor: HeroEyesColors(EYES_COLORS)
-    },
-    {
-      name: HeroName(WIZARD_NAMES) + ' ' + HeroSurname(WIZARD_SURNAMES),
-      coatColor: HeroCoatColors(COAT_COLORS),
-      eyesColor: HeroEyesColors(EYES_COLORS)
-    },
-    {
-      name: HeroName(WIZARD_NAMES) + ' ' + HeroSurname(WIZARD_SURNAMES),
-      coatColor: HeroCoatColors(COAT_COLORS),
-      eyesColor: HeroEyesColors(EYES_COLORS)
-    },
-  ];
+      name: wizardFullName,
+      coatColor: wizardCoatColor,
+      eyesColor: wizardEyesColor
+    };
+
+  wizards.push(generateWizardData);
 }
-console.log(wizards);
 
-for (var i = 0; i < wizards.length; i++) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
+for (let i = 0; i < wizards.length; i++) {
+  const wizardElement = similarWizardTemplate.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizards[i].name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizards[i].coatColor;
