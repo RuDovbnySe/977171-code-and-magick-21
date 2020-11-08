@@ -19,13 +19,12 @@ const setupFireball = document.querySelector('.setup-fireball-wrap');
 const wizardCoatOnClick = document.querySelector('#wizard-coat');
 const wizardEyestOnClick = document.querySelector('#wizard-eyes');
 const userNameInput = document.querySelector('.setup-user-name');
-const coatColorInput = document.getElementsByName('coat-color');
-const eyesColorInput = document.getElementsByName('eyes-color');
-const fireballColorInput = document.getElementsByName('fireball-color');
-var MIN_NAME_LENGTH = 2;
-var MAX_NAME_LENGTH = 25;
+const formWizardCoat = document.querySelector('#coat-color');
+const formWizardEyes = document.querySelector('#eyes-color');
+const formFirebal = document.querySelector('#fireball-color');
 
-
+const MIN_NAME_LENGTH = 2;
+const MAX_NAME_LENGTH = 25;
 const WIZARD_NAMES = [
   `Иван`,
   `Хуан Себастьян`,
@@ -176,35 +175,26 @@ const settingColor = (array, touch) => {
   touch.style.fill = randomColor;
   return randomColor;
 };
-wizardEyestOnClick.onchange = (Color) => {
-  eyesColorInput.value = Color;
-  coatColorInput.value = Color;
-};
 
 wizardCoatOnClick.addEventListener('click', function (evt) {
   evt.preventDefault();
   const randomCoatColor = settingColor(COAT_COLORS, wizardCoat);
-  coatColorInput.value = randomCoatColor;
-  console.log(coatColorInput.value);
+  formWizardCoat.value = randomCoatColor;
+  console.log(formWizardCoat.value);
 });
 
 wizardEyestOnClick.addEventListener('click', function (evt) {
   evt.preventDefault();
   const randomEyesColor = settingColor(EYES_COLORS, wizardEyes);
-  eyesColorInput.value = randomEyesColor;
-  console.log(eyesColorInput.value);
+  formWizardEyes.value = randomEyesColor;
+  console.log(formWizardEyes.value);
 });
-
-const settingFireballColor = () => {
-  const randomColor = getRandomArrayItem(FIREBALL_COLORS);
-  setupFireball.style.backgroundColor = randomColor;
-  setupFireball.value = randomColor;
-  console.log(randomColor);
-  console.log(setupFireball.value);
-};
 
 setupFireball.addEventListener('click', function (evt) {
   evt.preventDefault();
-  settingFireballColor();
+  const randomColor = getRandomArrayItem(FIREBALL_COLORS);
+  setupFireball.style.backgroundColor = randomColor;
+  formFirebal.value = randomColor;
+  console.log(formFirebal.value);
 });
 
